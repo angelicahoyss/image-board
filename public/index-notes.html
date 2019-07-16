@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div class="main">
+        <!-- elements inside of .main will have access to Vue. -->
+        <h1>welcome, {{ name }}</h1>
+        <p>{{ userInfo.favoriteFood }}</p>
+
+        <ul v-if="cities.length > 0">
+            <li v-for = 'city in cities'>
+                {{city.name}}, {{city.country}}
+            </li>
+        </ul>
+        <p v-else>no cities!</p>
+    </div>
+
+
+
+
+    <script src="/js/vue.js"></script>
+    <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
+</body>
+</html>
