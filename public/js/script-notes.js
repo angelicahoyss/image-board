@@ -42,7 +42,10 @@
                 .catch(function(err) {
                     console.log("err in GET /cities: ", err);
                 });
-        } //closes mounted function
+        }, //closes mounted function
+        methods: {
+            //every signle function that runs in response to an event must be
+            //defined in methods
     }); //closes new Vue
 })();
 //mountedL runs after HTML has loaded. It's a "lifecycle method"
