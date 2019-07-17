@@ -7,7 +7,9 @@
             title: "",
             description: "",
             username: "",
-            file: null
+            file: null,
+            // favoriteThing: "peanut butter",
+            showModal: false
         }, //closes data
         mounted: function() {
             var self = this;
@@ -58,7 +60,13 @@
                 this.file = e.target.files[0];
 
                 //this function runs when user selects an image on the file input field
-            } //closes handleChange
+            }, //closes handleChange
+            // change: function() {
+            //     this.favoriteThing = "kittens";
+            // },
+            clicked: function() {
+                this.showModal = true;
+            }
         } //closes methods
     }); //closes new Vue
 })();
