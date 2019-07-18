@@ -20,8 +20,10 @@
         <div class="grid-container">
             <div class="images-container">
                 <div class="image" v-for ="image in images">
-                        <img :src="image.url" alt="image" @click="clicked">
-                    <p>{{image.title}}</p>
+                    <a :href="'#' + image.id">
+                        <img :src="image.url" alt="image" id="image.id" @click="clicked(image.id)">
+                        <p>{{image.title}}</p>
+                    </a>
                 </div>
             </div>
         </div>
@@ -34,17 +36,25 @@
     <script type="text/x-template" id="modal-template">
         <transition name="modal">
             <div class="modal-wrapper">
-                <h1>jules is the best</h1>
+                <h2>{{oneimage.title}}</h2>
+                <img :src="oneimage.url" class="oneimage">
+                <h2>{{oneimage.description}}</h2>
+                <h2>posted by {{oneimage.username}}</h2>
+                <h2>posted on {{oneimage.created_at}}</h2>
                 <button class="modal-btn" @click="$emit('close')">OK</button>
             </div>
         </transition>
     </script>
 
     <!-- //add to data main view instance currentImage and falsey. click handle to all images to
-    set the currentImage to truthy img. should be id info. pass prop(only pass id, not *) and mount(take id thats passed - this.id and make ajax request) to specify which image.
+    set the currentImage to truthy img. DONE
+
+    should be id info. pass prop(only pass id, not *) and mount(take id thats passed - this.id and make ajax request) to specify which image.
     when modal appears all data about img and all comments.
+
     one route that getImagebyID query and comments query. Make two ajax routs(image data and comments separatly**better or one route that does both)
     when modal sets the data on itself you need to add it to prop.
+
     making comments: normal ajax: when user clicks submit use v-modal, post is just a normal post, there is no formData (only for
     uploading the file) axios.post('/comment', { pass normal body imageId:this.id, comment: this.comment, username: this.commentUsername})
     axios is going to json.stringyfy - type of data sending is not url encoded it's json:
@@ -53,7 +63,12 @@
     making the modal go away:
     modal covers the whole screen. close click handler added to image modal with @close, in prop set to 0 - falsey.
     ***start by making modal component, putting a template for it and css, click handler to images to make modal appear, id to get the right
-    stuff in a modal, and close the modal-->
+    stuff in a modal, and close the modal
+**** PART 4****
+
+location.hash.slice(1);
+check if the data is empty, emit, close
+-->
 
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>

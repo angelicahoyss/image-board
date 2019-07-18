@@ -2,12 +2,14 @@
     new Vue({
         el: ".main",
         data: {
+            id: location.hash.slice(1),
             name: "I pixel pixels",
             images: [],
             title: "",
             description: "",
             username: "",
             file: null,
+            lastimageId: "",
             // favoriteThing: "peanut butter",
             showModal: false
         }, //closes data
@@ -17,13 +19,16 @@
             axios
                 .get("/images")
                 .then(function(resp) {
-                    console.log("resp.data.rows:", resp.data.rows);
                     self.images = resp.data.rows;
                     console.log("self:", self);
                 })
                 .catch(function(err) {
                     console.log("err in GET /images: ", err);
                 });
+
+            addEventListener("hashchange", function() {
+                self.id = location.hash.slice(1);
+            });
         }, //closes mounted function
 
         methods: {
@@ -64,11 +69,15 @@
             // change: function() {
             //     this.favoriteThing = "kittens";
             // },
-            clicked: function() {
-                this.showModal = true;
+            clicked: function(id) {
+                this.showModal = id;
+            },
+            closeModal: function() {
+                this.id = null;
+                location.hash = "";
+                history.replaceState(null, null, " ");
             }
         } //closes methods
     }); //closes new Vue
 })();
-
 //this refers to vie instance and prop of data are inside

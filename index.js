@@ -31,7 +31,7 @@ app.use(require("body-parser").json());
 app.get("/images", function(req, res) {
     db.getImages()
         .then(data => {
-            console.log("3 images", data);
+            // console.log("3 images", data);
             res.json(data);
         })
         .catch(err => {
@@ -55,7 +55,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
             console.log(err);
         });
 
-    console.log("req.file:", req.file);
+    // console.log("req.file:", req.file);
     // if (req.file) {
     //     res.json({
     // file: req.file.filename
@@ -67,4 +67,17 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     //     });
     // }
 });
-app.listen(8080, () => console.log("jules!"));
+
+app.get("/oneImage", function(req, res) {
+    console.log("whatever in get image");
+    db.getImagebyId(req.query.id)
+        .then(data => {
+            console.log("image", data);
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+});
+
+app.listen(8080, () => console.log("listening!"));
