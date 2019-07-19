@@ -2,14 +2,14 @@
     new Vue({
         el: ".main",
         data: {
-            id: location.hash.slice(1),
+            imageId: location.hash.slice(1),
             name: "I pixel pixels",
             images: [],
             title: "",
             description: "",
             username: "",
             file: null,
-            lastimageId: "",
+            // lastimageId: "",
             // favoriteThing: "peanut butter",
             showModal: false
         }, //closes data
@@ -27,7 +27,7 @@
                 });
 
             addEventListener("hashchange", function() {
-                self.id = location.hash.slice(1);
+                self.imageId = location.hash.slice(1);
             });
         }, //closes mounted function
 
@@ -73,7 +73,7 @@
                 this.showModal = id;
             },
             closeModal: function() {
-                this.id = null;
+                this.imageId = null;
                 location.hash = "";
                 history.replaceState(null, null, " ");
             }

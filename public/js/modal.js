@@ -4,13 +4,17 @@
         data: function() {
             return {
                 oneimage: {
-                    id: location.hash.slice(1),
                     url: "",
                     username: "",
                     title: "",
                     description: "",
                     created_at: ""
-                }
+                },
+                commentSection: {
+                    author: "",
+                    newComment: ""
+                },
+                comments: []
             };
         },
 
@@ -33,11 +37,22 @@
                     self.title = resp.data.rows[0].title;
                     self.description = resp.data.rows[0].description;
                     self.created_at = resp.data.rows[0].created_at;
-                    // console.log(resp.data.rows[0]);
+                    console.log(resp.data.rows[0]);
+
                     // console.log("self:", self);
                 })
                 .catch(function(err) {
                     console.log("err in GET /image: ", err);
+                });
+            axios
+                .get("/comments", {
+                    params: {
+                        id: self.id
+                    }
+                })
+                .then(resp => {
+                    self.comments = resp.data;
+                    console.log("comments array", resp.data);
                 });
             // console.log("mounted!!!");
         },
@@ -64,9 +79,48 @@
                     .catch(function(err) {
                         console.log("err in GET /image: ", err);
                     });
+                axios
+                    .get("/comments", {
+                        params: {
+                            id: self.id
+                        }
+                    })
+                    .then(resp => {
+                        self.comments = resp.data.comments;
+                        console.log("this comments:", this.comments);
+
+                        // console.log(self.comments);
+                    })
+                    .catch(function(err) {
+                        console.log("err in GET /comments: ", err);
+                    });
             }
-        }
-        // methods: {
+        },
+        methods: {
+            saveComment: function() {
+                var self = this;
+                axios
+                    .post("/comments", {
+                        author: self.commentSection.author,
+                        newComment: self.commentSection.newComment,
+                        imageId: self.id
+                    })
+                    .then(results => {
+                        console.log("unshift of undefined? ", results.data);
+                        self.comments.unshift(results.data.lastComment);
+                        self.lastComment = "";
+                        self.commentSection.author = "";
+                        self.commentSection.newComment = "";
+                        console.log("self.comments: ", this.comments);
+                    })
+                    .catch(err => {
+                        console.log("err in axios.post /saveComment: ", err);
+                    });
+                // self.comments.push(self.newComment);
+                // self.newComment = "";
+            } //closes saveComment
+        } //closes methods
+
         //     clicked: function() {
         //         this.something = this.whatever;
         //     }

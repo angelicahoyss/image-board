@@ -28,9 +28,31 @@ exports.getImagebyId = function getImagebyId(id) {
     return db.query(
         `SELECT *
         FROM images
-        WHERE id = $1;
+        WHERE id=$1;
         `,
         [id]
+    );
+};
+
+exports.addComment = function(imageId, newComment, author) {
+    return db.query(
+        `INSERT INTO comments
+        (imageId, newComment, author)
+        VALUES ($1, $2, $3)
+        RETURNING *
+        `,
+        [imageId, newComment, author]
+    );
+};
+
+exports.getComments = function(imageId) {
+    return db.query(
+        `SELECT *
+        FROM comments
+        WHERE imageId=$1
+        ORDER BY created_at DESC
+        `,
+        [imageId]
     );
 };
 

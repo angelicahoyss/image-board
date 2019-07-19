@@ -35,7 +35,7 @@ app.get("/images", function(req, res) {
             res.json(data);
         })
         .catch(err => {
-            console.log(err);
+            console.log("err in GET / getImages", err);
         });
 });
 //uploader.single RUNS all the boilerplate code from above.
@@ -46,13 +46,13 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     //uploader.signle, when successful, adds a property called "file" to the
     //request object. "file" represents the file that was just uploaded to /uploads
     const url = config.s3Url + req.file.filename;
-    console.log("URL :", url);
+    // console.log("URL :", url);
     db.addImage(url, req.body.username, req.body.title, req.body.description)
         .then(data => {
             res.json(data.rows[0]);
         })
         .catch(err => {
-            console.log(err);
+            console.log("err in POST / uploadFile", err);
         });
 
     // console.log("req.file:", req.file);
@@ -68,15 +68,37 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // }
 });
 
-app.get("/oneImage", function(req, res) {
-    console.log("whatever in get image");
+app.get("/oneImage", (req, res) => {
     db.getImagebyId(req.query.id)
         .then(data => {
-            console.log("image", data);
+            // console.log("image", data);
             res.json(data.rows);
         })
         .catch(err => {
-            console.log(err);
+            console.log("err in GET / getImagebyId", err);
+        });
+});
+app.post("/comments", (req, res) => {
+    db.addComment(req.body.imageId, req.body.newComment, req.body.author)
+        .then(data => {
+            res.json({
+                lastComment: data.rows[0]
+            });
+        })
+        .catch(err => {
+            console.log("err in POST / addComment", err);
+        });
+});
+
+app.get("/comments", (req, res) => {
+    console.log("something", req.query.id);
+    db.getComments(req.query.id)
+        .then(data => {
+            console.log("data rows", data.rows);
+            res.json(data.rows);
+        })
+        .catch(err => {
+            console.log("err in GET / getComments", err);
         });
 });
 
