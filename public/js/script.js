@@ -10,13 +10,13 @@
             username: "",
             file: null,
             showModal: false,
-            hasMore: true,
-            terms: false,
-            computed: {
-                isDisabled: function() {
-                    return !this.terms;
-                }
-            }
+            hasMore: true
+            // uploads: false,
+            // computed: {
+            //     isDisabled: function() {
+            //         return !this.uploads;
+            //     }
+            // }
         }, //closes data
         mounted: function() {
             var self = this;
@@ -87,7 +87,7 @@
                     .get("/loadmore/" + lastimageId)
                     .then(resp => {
                         // console.log("length:", resp.data.rows);
-                        if (resp.data.rows.length < 12) {
+                        if (resp.data.rows.length < 24) {
                             this.hasMore = false;
                         }
                         this.images = this.images.concat(resp.data.rows);

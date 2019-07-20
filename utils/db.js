@@ -12,7 +12,7 @@ exports.getImages = function getImages() {
         `SELECT *
         FROM images
         ORDER BY id DESC
-        LIMIT 12;
+        LIMIT 24;
         `
     );
 };
@@ -73,7 +73,7 @@ exports.getMoreImages = function getMoreImages(id) {
         `SELECT * FROM images
         WHERE id <$1
         ORDER BY id DESC
-        LIMIT 12`,
+        LIMIT 24`,
         [id]
     );
 };
