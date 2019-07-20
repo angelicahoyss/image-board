@@ -20,7 +20,6 @@
 
         props: ["id"],
         mounted: function() {
-            // var id = this.id;
             var self = this;
             console.log("this is id:", self.id);
             axios
@@ -38,8 +37,6 @@
                     self.description = resp.data.rows[0].description;
                     self.created_at = resp.data.rows[0].created_at;
                     console.log(resp.data.rows[0]);
-
-                    // console.log("self:", self);
                 })
                 .catch(function(err) {
                     console.log("err in GET /image: ", err);
@@ -54,7 +51,6 @@
                     self.comments = resp.data;
                     console.log("comments array", resp.data);
                 });
-            // console.log("mounted!!!");
         },
         watch: {
             id: function() {
@@ -88,8 +84,6 @@
                     .then(resp => {
                         self.comments = resp.data.comments;
                         console.log("this comments:", this.comments);
-
-                        // console.log(self.comments);
                     })
                     .catch(function(err) {
                         console.log("err in GET /comments: ", err);
@@ -106,7 +100,6 @@
                         imageId: self.id
                     })
                     .then(results => {
-                        console.log("unshift of undefined? ", results.data);
                         self.comments.unshift(results.data.lastComment);
                         self.lastComment = "";
                         self.commentSection.author = "";
@@ -116,18 +109,7 @@
                     .catch(err => {
                         console.log("err in axios.post /saveComment: ", err);
                     });
-                // self.comments.push(self.newComment);
-                // self.newComment = "";
             } //closes saveComment
         } //closes methods
-
-        //     clicked: function() {
-        //         this.something = this.whatever;
-        //     }
-        // clicked2: function() {
-        //     this.$emit("change", "discoduck");
-        //     // console.log("hi");
-        // }
-        // }
     });
 })();

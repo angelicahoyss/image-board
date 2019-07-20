@@ -31,7 +31,7 @@ app.use(require("body-parser").json());
 app.get("/images", function(req, res) {
     db.getImages()
         .then(data => {
-            // console.log("3 images", data);
+            // console.log("images", data);
             res.json(data);
         })
         .catch(err => {
@@ -91,14 +91,25 @@ app.post("/comments", (req, res) => {
 });
 
 app.get("/comments", (req, res) => {
-    console.log("something", req.query.id);
+    // console.log("req.query.id", req.query.id);
     db.getComments(req.query.id)
         .then(data => {
-            console.log("data rows", data.rows);
+            // console.log("data rows", data.rows);
             res.json(data.rows);
         })
         .catch(err => {
             console.log("err in GET / getComments", err);
+        });
+});
+
+app.get("/loadmore/:id", (req, res) => {
+    console.log(req.params.id);
+    db.getMoreImages(req.params.id)
+        .then(data => {
+            res.json(data);
+        })
+        .catch(err => {
+            console.log("err in GET / loadMore", err);
         });
 });
 
