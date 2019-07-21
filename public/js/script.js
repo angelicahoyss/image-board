@@ -10,7 +10,8 @@
             username: "",
             file: null,
             showModal: false,
-            hasMore: true
+            hasMore: true,
+            filechooser: ""
             // uploads: false,
             // computed: {
             //     isDisabled: function() {
@@ -56,7 +57,8 @@
                         self.title = "";
                         self.username = "";
                         self.description = "";
-
+                        self.$refs.filechooser.value = "";
+                        self.$refs.filelabel.innerText = "select file";
                         // console.log("resp from POST/upload:", resp);
                     })
                     .catch(function(err) {
@@ -67,10 +69,19 @@
                 // console.log("this:", this);
             },
             handleChange: function(e) {
-                // console.log("e in handleChange:", e.target.files[0]);
+                console.log("e in handleChange:", e.target.files[0]);
                 this.file = e.target.files[0];
 
-                //this function runs when user selects an image on the file input field
+                if (e.target.files[0]) {
+                    console.log(
+                        "e in handleChange:",
+                        "we have a file with name: " + this.file.name
+                    );
+                    this.$refs.filelabel.innerText = this.file.name;
+                } else {
+                    console.log("e in handleChange:", "we DON'T  have a file");
+                    this.$refs.filelabel.innerText = "select file";
+                } //this function runs when user selects an image on the file input field
             }, //closes handleChange
             clicked: function(id) {
                 this.showModal = id;

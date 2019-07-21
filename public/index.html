@@ -13,9 +13,9 @@
                 <input class="input" v-model = "title" type="text" name="title" placeholder="title"/>
                 <input class="input" v-model = "description" type="text" name="description" placeholder="description"/>
                 <input class="input" v-model = "username" type="text" name="username" placeholder="username"/>
-                <input type="file" class="inputfile" name="file" accept="image/*" @change="handleChange"/>
-                <label for="file">choose a file</label>
-                <button id="upload-btn" :disabled='isDisabled' @click.prevent.default="submitImage" type="button" name="button">submit</button>
+                <input type="file" ref="filechooser" class="inputfile" name="file" accept="image/*" @change="handleChange"/>
+                <label id="filelabel" ref="filelabel" for="file">select file</label>
+                <button id="upload-btn" @click.prevent.default="submitImage" type="button" name="button">submit</button>
             </form>
 
         <div class="grid-container">
@@ -37,8 +37,9 @@
     <script type="text/x-template" id="modal-template">
         <transition name="modal">
             <div class="modal-wrapper">
-                <h2>{{oneimage.title}}</h2>
+
                 <img :src="oneimage.url" class="oneimage">
+                <h2>{{oneimage.title}}</h2>
 
                     <div class="commentSection">
                         <input v-model = "commentSection.author" type="text" placeholder="username"/>
@@ -52,7 +53,7 @@
 
                 <p>{{oneimage.description}}</p>
                 <p>posted by {{oneimage.username}}</p>
-                <p>posted on {{oneimage.created_at}}</p>
+                <p>on {{oneimage.created_at}}</p>
                 <button class="close-btn" @click="$emit('close')">close</button>
             </div>
         </transition>
@@ -63,3 +64,4 @@
     <script src="/js/script.js"></script>
 </body>
 </html>
+<!-- :disabled='isDisabled' -->
