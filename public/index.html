@@ -37,24 +37,30 @@
     <script type="text/x-template" id="modal-template">
         <transition name="modal">
             <div class="modal-wrapper">
-
-                <img :src="oneimage.url" class="oneimage">
-                <h2>{{oneimage.title}}</h2>
-
-                    <div class="commentSection">
-                        <input v-model = "commentSection.author" type="text" placeholder="username"/>
-                        <input v-model = "commentSection.newComment" type="text" placeholder="add a comment" @keyup.enter="saveComment"/>
-                        <button class="btn btn-primary" @click="saveComment">submit</button>
-                        <div id="comments" v-for = "comment in comments">
-                            <p>{{comment.newcomment}}</p>
-                            <p>posted by {{comment.author}} on {{comment.created_at}}</p>
-                        </div>
+                <div id="modalContent">
+                    <img :src="oneimage.url" class="oneimage">
+                    <div class="imageDetails">
+                        <h2>{{oneimage.title}}</h2>
+                        <p>{{oneimage.description}}</p>
+                        <p>by <b>{{oneimage.username}}</b></p>
+                        <p>on {{oneimage.created_at}}</p>
                     </div>
 
-                <p>{{oneimage.description}}</p>
-                <p>posted by {{oneimage.username}}</p>
-                <p>on {{oneimage.created_at}}</p>
-                <button class="close-btn" @click="$emit('close')">close</button>
+                    <div class="commentSection">
+                        <h2>leave a comment</h2>
+                        <input v-model = "commentSection.author" type="text" placeholder="username"/>
+                        <input v-model = "commentSection.newComment" type="text" placeholder="add a comment" @keyup.enter="saveComment"/>
+                        <button class="comments-btn" @click="saveComment">submit</button>
+                    </div>
+
+                    <div class="allComments">
+                        <div id="comments" v-for = "comment in comments">
+                            <p><b>{{comment.author}} said:</b> {{comment.newcomment}}</p>
+                            <p>on {{comment.created_at}}</p>
+                        </div>
+                    </div>
+                    <button class="close-btn" @click="$emit('close')">X</button>
+                </div>
             </div>
         </transition>
     </script>
