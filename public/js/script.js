@@ -54,6 +54,7 @@
                     .post("/upload", formData)
                     .then(function(resp) {
                         self.images.unshift(resp.data);
+                        self.images.pop();
                         self.title = "";
                         self.username = "";
                         self.description = "";
