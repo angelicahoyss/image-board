@@ -6,6 +6,7 @@ var multer = require("multer");
 var uidSafe = require("uid-safe");
 var path = require("path");
 const config = require("./config");
+const moment = require("moment");
 
 var diskStorage = multer.diskStorage({
     destination: function(req, file, callback) {
@@ -49,6 +50,12 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // console.log("URL :", url);
     db.addImage(url, req.body.username, req.body.title, req.body.description)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                    data.rows[i].created_at = moment(
+                        data.rows[i].created_at,
+                        moment.ISO_8601
+                    ).format("MMM Do YY");
+                }
             res.json(data.rows[0]);
         })
         .catch(err => {
@@ -71,6 +78,12 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 app.get("/oneImage", (req, res) => {
     db.getImagebyId(req.query.id)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                    data.rows[i].created_at = moment(
+                        data.rows[i].created_at,
+                        moment.ISO_8601
+                    ).format("MMM Do YY");
+                }
             // console.log("image", data);
             res.json(data.rows);
         })
@@ -81,6 +94,12 @@ app.get("/oneImage", (req, res) => {
 app.post("/comments", (req, res) => {
     db.addComment(req.body.imageId, req.body.newComment, req.body.author)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                    data.rows[i].created_at = moment(
+                        data.rows[i].created_at,
+                        moment.ISO_8601
+                    ).format("MMM Do YY");
+                }
             res.json({
                 lastComment: data.rows[0]
             });
@@ -94,6 +113,12 @@ app.get("/comments", (req, res) => {
     // console.log("req.query.id", req.query.id);
     db.getComments(req.query.id)
         .then(data => {
+            for (let i = 0; i < data.rows.length; i++) {
+                    data.rows[i].created_at = moment(
+                        data.rows[i].created_at,
+                        moment.ISO_8601
+                    ).format("MMM Do YY");
+                }
             // console.log("data rows", data.rows);
             res.json(data.rows);
         })

@@ -206,6 +206,11 @@ h1 {
     padding: 0;
 }
 
+.comments-btn:hover {
+    color: #939393;
+    cursor: crosshair;
+}
+
 .load-more-btn {
     outline: none;
     -webkit-appearance: none;
