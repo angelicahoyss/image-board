@@ -4,7 +4,7 @@
 
 ## Overview
 
-Instagram-inspired, single-page application built with Vue.js where anyone can upload an image of their choosing, add a title and description, and comment on images. 
+Instagram-inspired, single-page application built with Vue.js where anyone can upload an image of their choosing, add a title and description and comment on images. 
 
 ## Technology
 
@@ -12,11 +12,13 @@ Instagram-inspired, single-page application built with Vue.js where anyone can u
 
 ## Preview
 
-##### Homepage
+#### Homepage
 
 <img src='./homepage.gif' />
 
-##### Uploading an Image
+#### Uploading an Image
 
-##### Commenting on Images
+<img src='./uploadimage.gif' />
+
+#### Commenting on Images
 

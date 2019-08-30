@@ -89,6 +89,11 @@ h1 {
     display: block;
     cursor: crosshair;
 }
+
+#upload-btn:hover {
+    color: #939393;
+    cursor: crosshair;
+}
 .modal-wrapper {
     position: fixed;
     z-index: 9998;
