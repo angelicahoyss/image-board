@@ -16,9 +16,9 @@ Vue.js | Handlebars | AWS S3 | Node.js | Express.js | PostgreSQL
 
 <img src='./homepage.gif' />
 
-#### Uploading an Image
+#### Image Upload
 
 <img src='./uploadimage.gif' />
 
-#### Commenting on Images
+#### Image Comments
 
