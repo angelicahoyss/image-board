@@ -8,7 +8,7 @@ Instagram-inspired, single-page application built with Vue.js where anyone can u
 
 ## Technology
 
-- Vue.js, Handlebars, AWS S3, Node.js, Express.js & PostgreSQL
+Vue.js | Handlebars | AWS S3 | Node.js | Express.js | PostgreSQL
 
 ## Preview
 
